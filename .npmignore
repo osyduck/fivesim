@@ -1,0 +1,10 @@
+src
+test
+examples
+*.ts
+!dist/**/*.d.ts
+tsconfig.json
+vitest.config.ts
+.gitignore
+.eslintrc.json
+.prettierrc
