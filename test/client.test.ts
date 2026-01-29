@@ -312,27 +312,21 @@ describe('FiveSimClient', () => {
 
     describe('Error Handling', () => {
         it('should throw AuthenticationError on 401', async () => {
-            const mockGet = vi.fn().mockRejectedValue({
-                response: { status: 401, data: 'Unauthorized' },
-            });
+            const mockGet = vi.fn().mockRejectedValue(new AuthenticationError());
             (client as any).client.get = mockGet;
 
             await expect(client.getProfile()).rejects.toThrow(AuthenticationError);
         });
 
         it('should throw RateLimitError on 429', async () => {
-            const mockGet = vi.fn().mockRejectedValue({
-                response: { status: 429, data: 'Too many requests' },
-            });
+            const mockGet = vi.fn().mockRejectedValue(new RateLimitError());
             (client as any).client.get = mockGet;
 
             await expect(client.getProfile()).rejects.toThrow(RateLimitError);
         });
 
         it('should throw NoNumbersError when no numbers available', async () => {
-            const mockGet = vi.fn().mockRejectedValue({
-                response: { status: 400, data: 'no free phones' },
-            });
+            const mockGet = vi.fn().mockRejectedValue(new NoNumbersError('no free phones'));
             (client as any).client.get = mockGet;
 
             await expect(client.buyActivation({

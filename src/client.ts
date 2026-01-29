@@ -95,7 +95,7 @@ export class FiveSimClient {
         const params = new URLSearchParams();
         if (options?.category) params.append('category', options.category);
         if (options?.limit) params.append('limit', options.limit.toString());
-        if (options?.offset) params.append('offset', options.offset.toString());
+        if (options?.offset !== undefined) params.append('offset', options.offset.toString());
 
         const queryString = params.toString();
         const url = `/user/orders${queryString ? `?${queryString}` : ''}`;
